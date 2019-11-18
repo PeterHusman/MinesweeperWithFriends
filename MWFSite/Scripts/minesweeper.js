@@ -76,7 +76,7 @@ function AddMine()
     {
         let x = Math.floor(rand.nextFloat() * mapSize);
         let y = Math.floor(rand.nextFloat() * mapSize);
-        if(!map[x][y].mine)
+        if(!map[x][y].mine && (x >= 2 || y >= 2))
         {
             map[x][y].mine = true;
             break;
