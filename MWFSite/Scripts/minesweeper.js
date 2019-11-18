@@ -302,7 +302,7 @@ function getCursorXY(e)
 
 function lClick(e)
 {
-    if(tileX < 0)
+    if(tileX < 0 || map[tileX][tileY].flagged)
     {
         return;
     }
