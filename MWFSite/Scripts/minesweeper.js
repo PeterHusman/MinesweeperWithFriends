@@ -86,6 +86,8 @@ function AddMine()
 
 function Setup()
 {
+    mapSize = parseInt(document.getElementById("width").value);
+    tileWidth = context.canvas.width / mapSize;
     map = new Array(mapSize);
     for(let i = 0; i < mapSize; i++)
     {
@@ -306,6 +308,18 @@ function lClick(e)
     }
     revealCell(tileX, tileY);
     DrawFunc();
+
+    for(let i = 0; i < mapSize; i++)
+    {
+        for(let j = 0; j < mapSize; j++)
+        {
+            if(map[i][j].mine == map[i][j].revealed)
+            {
+                return;
+            }
+        }
+    }
+    win();
 }
 
 function rClick(e)
@@ -323,6 +337,11 @@ function lose()
 {
     alert("oof");
     Setup();
+}
+
+function win()
+{
+    alert("yay!");
 }
 
 function JSONRequest(requestType, url, body, runMeSuccess, runMeFailure) {
