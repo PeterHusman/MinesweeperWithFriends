@@ -328,7 +328,7 @@ function lClick(e)
 
 function rClick(e)
 {
-    if(tileX < 0 || !map[tileX][tileY].revealed)
+    if(tileX < 0 || map[tileX][tileY].revealed)
     {
         return false;
     }
