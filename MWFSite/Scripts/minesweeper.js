@@ -4,8 +4,8 @@ let canvasX;
 let canvasY;
 let mouseX;
 let mouseY;
-let tileX;
-let tileY;
+let tileX = -1;
+let tileY = -1;
 let oldTileX;
 let oldTileY;
 let tileWidth;
@@ -36,22 +36,18 @@ function Random(seed) {
   /**
    * Returns a pseudo-random floating point number in range [0, 1).
    */
-  Random.prototype.nextFloat = function (opt_minOrMax, opt_max) {
+  Random.prototype.nextFloat = function () {
     // We know that result of next() will be 1 to 2147483646 (inclusive).
     return (this.next() - 1) / 2147483646;
+  };
+
+  Random.prototype.nextInt = function (min, max) {
+    return Math.floor(this.nextFloat() * (max - min) + min);
   };
 
 document.body.onload = () => {
     canvas = document.getElementById("minesweeperCanvas");
     context = canvas.getContext('2d');
-    if (window.Event)
-    {
-        document.captureEvents(Event.MOUSEMOVE);
-    }
-    document.onmousemove = getCursorXY;
-    document.oncontextmenu = rClick;
-    //document.addEventListener("click", clickHandle);
-    document.body.onclick = lClick;
     tileWidth = context.canvas.width / mapSize;
     map = new Array(mapSize);
     for(let i = 0; i < mapSize; i++)
@@ -67,6 +63,14 @@ document.body.onload = () => {
     {
         AddMine();
     }
+    if (window.Event)
+    {
+        document.captureEvents(Event.MOUSEMOVE);
+    }
+    document.onmousemove = getCursorXY;
+    document.oncontextmenu = rClick;
+    //document.addEventListener("click", clickHandle);
+    document.body.onclick = lClick;
     DrawFunc();
 };
 
@@ -286,8 +290,8 @@ function getCursorXY(e)
     {
         oldTileX = tileX;
         oldTileY = tileY;
-        tileX = Math.floor((mouseX - context.canvas.offsetLeft) / tileWidth);
-        tileY = Math.floor((mouseY - context.canvas.offsetTop) / tileWidth);
+        tileX = Math.min(Math.floor((mouseX - context.canvas.offsetLeft) / tileWidth), mapSize - 1);
+        tileY = Math.min(Math.floor((mouseY - context.canvas.offsetTop) / tileWidth), mapSize - 1);
         UpdateTile(tileX, tileY);
     }
     else
@@ -324,7 +328,7 @@ function lClick(e)
 
 function rClick(e)
 {
-    if(tileX < 0 && !map[tileX][tileY].revealed)
+    if(tileX < 0 || !map[tileX][tileY].revealed)
     {
         return false;
     }
