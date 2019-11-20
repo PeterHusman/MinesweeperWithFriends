@@ -59,7 +59,7 @@ document.body.onload = () => {
         }
     }
     rand = new Random(Math.floor(Math.random()*2140000000));
-    for(let i = 0; i < 20; i++)
+    for(let i = 0; i < 75; i++)
     {
         AddMine();
     }
