@@ -71,8 +71,22 @@ document.body.onload = () => {
     document.oncontextmenu = rClick;
     //document.addEventListener("click", clickHandle);
     document.body.onclick = lClick;
+    document.onkeydown = KeyPressed;
     DrawFunc();
 };
+
+function KeyPressed(e)
+{
+    e = e || window.event;
+    if(e.key == "z")
+    {
+        lClick(null);
+    }
+    else if(e.key == "x")
+    {
+        rClick(null);
+    }
+}
 
 function AddMine()
 {
