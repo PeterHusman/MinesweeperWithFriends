@@ -78,11 +78,11 @@ document.body.onload = () => {
 function KeyPressed(e)
 {
     e = e || window.event;
-    if(e.key == "z")
+    if(e.key == "z" || e.key == "d")
     {
         lClick(null);
     }
-    else if(e.key == "x")
+    else if(e.key == "x" || e.key == "f")
     {
         rClick(null);
     }
