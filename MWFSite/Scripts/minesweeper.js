@@ -58,7 +58,8 @@ document.body.onload = () => {
             map[i][j] = { revealed: false, flagged: false, mine: false };
         }
     }
-    rand = new Random(Math.floor(Math.random()*2140000000));
+    RandomizeSeed();
+    rand = new Random(parseInt(document.getElementById("seed").value));
     for(let i = 0; i < 75; i++)
     {
         AddMine();
@@ -74,6 +75,12 @@ document.body.onload = () => {
     document.onkeydown = KeyPressed;
     DrawFunc();
 };
+
+function RandomizeSeed()
+{
+	let s = Math.floor(Math.random()*2140000000);
+	document.getElementById("seed").value = s;
+}
 
 function KeyPressed(e)
 {
@@ -115,7 +122,7 @@ function Setup()
             map[i][j] = { revealed: false, flagged: false, mine: false };
         }
     }
-    rand = new Random(Math.floor(Math.random()*2140000000));
+    rand = new Random(parseInt(document.getElementById("seed").value));
     let n = parseInt(document.getElementById("mineNumber").value);
     for(let i = 0; i < n; i++)
     {
